@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        dockerfile {
+            filename 'jenkins_files/Dockerfile-tamino-translations'
+            args '--network tamino-ci_default --memory=2g'
+            reuseNode true
+        }
+    }
     stages {
         stage("Compile") {
             steps {
