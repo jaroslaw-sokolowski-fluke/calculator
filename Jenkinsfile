@@ -1,13 +1,13 @@
 pipeline {
-    agent {
-        dockerfile {
-            filename 'jenkins_files/Dockerfile-tamino-translations'
-            args '--network tamino-ci_default --memory=2g'
-            reuseNode true
-        }
-    }
+    agent none
     stages {
         stage("Compile") {
+            agent {
+                dockerfile {
+                    filename 'Dockerfile-calculator'
+                    reuseNode true
+                }
+            }
             steps {
                 echo "JAVA VERSION:"
                 sh "java -version"
