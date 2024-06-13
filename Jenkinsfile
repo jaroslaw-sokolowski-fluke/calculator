@@ -1,13 +1,12 @@
 pipeline {
-    agent none
+    agent {
+        docker {
+            image 'calculator-app'
+            reuseNode true
+        }
+    }
     stages {
         stage("Compile") {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile-calculator'
-                    reuseNode true
-                }
-            }
             steps {
                 echo "JAVA VERSION:"
                 sh "java -version"
