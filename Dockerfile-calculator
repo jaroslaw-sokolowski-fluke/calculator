@@ -1,0 +1,17 @@
+# Use an official Gradle image with Java 21
+FROM gradle:7.6-jdk21
+
+# Set the working directory inside the container
+#WORKDIR /app
+
+# Copy the local project files to the container's working directory
+#COPY . .
+
+# Run Gradle build to download dependencies (this layer will be cached unless dependencies change)
+#RUN gradle build --no-daemon -x test
+
+# Expose the port the application runs on
+EXPOSE 8081
+
+# Command to run the application
+#CMD ["gradle", "bootRun"]
