@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="/home/jsokolow/local-ci/projects/calculator/src/main/java/com/jsokolow/calculator/CalculatorController.java">
+</file>
+<file name="/home/jsokolow/local-ci/projects/calculator/src/main/java/com/jsokolow/calculator/Calculator.java">
+</file>
+<file name="/home/jsokolow/local-ci/projects/calculator/src/main/java/com/jsokolow/calculator/CalculatorApplication.java">
+</file>
+</checkstyle>
