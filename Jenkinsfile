@@ -5,6 +5,9 @@ pipeline {
             reuseNode true
         }
     }
+    triggers {
+        pollSCM('* * * * *')
+    }
     stages {
         stage("Compile") {
             steps {
