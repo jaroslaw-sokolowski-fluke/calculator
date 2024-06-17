@@ -11,9 +11,6 @@ pipeline {
     stages {
         stage("Compile") {
             steps {
-                echo "JAVA VERSION:"
-                sh "java -version"
-                echo "ATTEMPT COMPILE:"
                 sh "./gradlew compileJava"
             }
         }
@@ -25,23 +22,34 @@ pipeline {
         stage("Code coverage") {
             steps {
                 sh "./gradlew jacocoTestReport"
-                publishHTML (target: [
-                    reportDir: 'build/reports/jacoco/test/html',
-                    reportFiles: 'index.html',
-                    reportName: "JaCoCo Report"
-                ])
                 sh "./gradlew jacocoTestCoverageVerification"
             }
         }
         stage("Static code analysis") {
             steps {
-                sh "./gradlew checkstyleMain"
-                publishHTML (target: [
-                    reportDir: 'build/reports/checkstyle/',
-                    reportFiles: 'main.html',
-                    reportName: "Checkstyle Report"
-                ])
+                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                    sh "./gradlew checkstyleMain"
+                }
             }
+        }
+    }
+    post {
+        always {
+            // Code coverage report
+            publishHTML(target: [
+                reportDir: 'build/reports/jacoco/test/html',
+                reportFiles: 'index.html',
+                reportName: "JaCoCo Report"
+            ])
+            // Checkstyle report
+            publishHTML(target: [
+                reportDir: 'build/reports/checkstyle/',
+                reportFiles: 'main.html',
+                reportName: "Checkstyle Report"
+            ])
+        }
+        failure {
+            echo "Build failed. Check the published reports for details."
         }
     }
 }
